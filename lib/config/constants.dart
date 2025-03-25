@@ -5,6 +5,9 @@ class AppColors {
   static const subText = Color(0xFFAAAAAA);
   static const orange = Color(0xFFFF7D0D);
   static const textFieldBorder = Color(0xFFEEEEEE);
+  static const black = Color(0xFF000000);
+  static const white = Color(0xFFFFFFFF);
+  static const textfieldLabel = Color(0xFF666666);
 }
 
 class Fonts {
@@ -32,7 +35,9 @@ class WidgetSize {
 }
 
 class Images {
-  static const logo = 'assets/images/logo.png';
+  static const logo = 'assets/images/Logo.png';
+  static const googleLogo = 'assets/images/GoogleLogo.png';
+  static const splash = 'assets/images/splash.png';
   static const onBoard1 = 'assets/images/onboard1.png';
   static const onBoard2 = 'assets/images/onboard2.png';
   static const onBoard3 = 'assets/images/onboard3.png';

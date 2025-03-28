@@ -8,6 +8,11 @@ class AppColors {
   static const black = Color(0xFF000000);
   static const white = Color(0xFFFFFFFF);
   static const textfieldLabel = Color(0xFF666666);
+  static const cardBackground = Color(0xFFF8F8F8);
+  static const detailText = Color(0xFF888888);
+  static const profileBackground = Color(0xFFffccb1);
+  static const chipGrey = Color(0xFFCCCCCC);
+  static const chipFont = Color(0xFF333333);
 }
 
 class Fonts {
@@ -44,4 +49,11 @@ class Images {
   static const element1 = 'assets/images/element1.png';
   static const element2 = 'assets/images/element2.png';
   static const element3 = 'assets/images/element3.png';
+  static const locationCardImage = 'assets/images/img.png';
+  static const profile = 'assets/images/profile.png';
+}
+
+class SvgImages {
+  static const leftArrow = 'assets/icons/caret-left-fill.svg';
+  static const rightArrow = 'assets/icons/caret-right-fill.svg';
 }

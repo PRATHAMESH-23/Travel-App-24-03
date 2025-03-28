@@ -54,20 +54,46 @@ class TextfieldWidget extends StatefulWidget {
 }
 
 class _TextfieldWidgetState extends State<TextfieldWidget> {
+  bool _obscureText = true;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: TextStyle(fontFamily: Fonts.medium),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-        labelStyle: TextStyle(fontFamily: Fonts.medium),
-        labelText: widget.labelTitle,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.textFieldBorder, width: 2.0),
+        labelStyle: TextStyle(
+          fontFamily: Fonts.medium,
+          color: AppColors.textfieldLabel,
         ),
-        suffixIcon: widget.isPassword ? widget.icon : null,
+        labelText: widget.labelTitle,
+        hintText: widget.hintText,
+        hintStyle: TextStyle(fontFamily: Fonts.medium, color: Colors.grey[400]),
+        suffixIcon:
+            widget.isPassword
+                ? IconButton(
+                  icon: Icon(
+                    _obscureText ? Icons.visibility_off : Icons.visibility,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                )
+                : widget.icon,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.textFieldBorder),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.textFieldBorder,
+          ), // Same color as enabledBorder
+        ),
       ),
       controller: widget.controller,
-      obscureText: widget.isPassword ? true : false,
+      obscureText: widget.isPassword ? _obscureText : false,
+      obscuringCharacter: '*',
     );
   }
 }

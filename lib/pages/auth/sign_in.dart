@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/config/constants.dart';
+import 'package:travel_app/pages/auth/sign_up.dart';
 import 'package:travel_app/widgets/textfield_widget.dart';
 
 class SignInPage extends StatelessWidget {
@@ -12,24 +13,43 @@ class SignInPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Image.asset(Images.logo),
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              Text(
-                "Log In",
-                style: TextStyle(
-                  fontFamily: Fonts.regular,
-                  fontSize: WidgetSize.fontSize_28,
+              Center(
+                child: Text(
+                  "Log In",
+                  style: TextStyle(
+                    fontFamily: Fonts.regular,
+                    fontSize: WidgetSize.fontSize_28,
+                  ),
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-
-              TextfieldWidget(labelTitle: "Email"),
+              Text(
+                "Email",
+                style: TextStyle(
+                  fontFamily: Fonts.medium,
+                  fontSize: WidgetSize.fontSize_16,
+                  color: AppColors.textfieldLabel,
+                ),
+              ),
+              TextfieldWidget(hintText: 'Enter Your Email'),
               SizedBox(height: 16.0),
+              Text(
+                "Password",
+                style: TextStyle(
+                  fontFamily: Fonts.medium,
+                  fontSize: WidgetSize.fontSize_16,
+                  color: AppColors.textfieldLabel,
+                ),
+              ),
               TextfieldWidget(
-                labelTitle: "Password",
+                hintText: '************',
                 icon: Icon(Icons.visibility),
+                isPassword: true,
               ),
 
               SizedBox(height: 8.0),
@@ -67,11 +87,13 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16.0),
-              Text(
-                'Or',
-                style: TextStyle(
-                  fontFamily: Fonts.semiBold,
-                  color: AppColors.subText,
+              Center(
+                child: Text(
+                  'Or',
+                  style: TextStyle(
+                    fontFamily: Fonts.semiBold,
+                    color: AppColors.subText,
+                  ),
                 ),
               ),
               SizedBox(height: 16.0),
@@ -104,29 +126,21 @@ class SignInPage extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // ElevatedButton.icon(
-              //   onPressed: () {},
-              //   icon: Image.asset(Images.googleLogo, height: 24),
-              //   label: Text(
-              //     'Log In With Google',
-              //     style: TextStyle(
-              //       fontFamily: Fonts.semiBold,
-              //       color: AppColors.black,
-              //     ),
-              //   ),
-              //   style: ElevatedButton.styleFrom(
-              //     minimumSize: Size(double.infinity, 50),
-              //   ),
-              // ),
               SizedBox(height: 16.0),
               TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Sign Up Here',
-                  style: TextStyle(
-                    fontFamily: Fonts.medium,
-                    color: AppColors.orange,
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SignUpPage()),
+                  ); // Replace MyHomePage
+                },
+                child: Center(
+                  child: Text(
+                    'Sign Up Here',
+                    style: TextStyle(
+                      fontFamily: Fonts.medium,
+                      color: AppColors.orange,
+                    ),
                   ),
                 ),
               ),

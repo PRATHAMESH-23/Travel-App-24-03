@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/config/constants.dart';
+import 'package:travel_app/pages/auth/sign_in.dart';
 import 'package:travel_app/widgets/textfield_widget.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -23,7 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.4,
                 child: Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -39,6 +41,16 @@ class _SignUpPageState extends State<SignUpPage> {
                   ],
                 ),
               ),
+              Text(
+                "Email",
+                style: TextStyle(
+                  fontFamily: Fonts.medium,
+                  fontSize: WidgetSize.fontSize_16,
+                  color: AppColors.textfieldLabel,
+                ),
+              ),
+              TextfieldWidget(hintText: 'Enter Your Email'),
+              SizedBox(height: 16.0),
               Row(
                 // Center the row
                 children: <Widget>[
@@ -56,7 +68,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   color: AppColors.textfieldLabel,
                 ),
               ),
-              TextfieldWidget(icon: Icon(Icons.visibility), isPassword: true),
+              TextfieldWidget(
+                icon: Icon(Icons.visibility),
+                isPassword: true,
+                hintText: '************',
+              ),
               SizedBox(height: 12.0),
               Text(
                 "Confirm Password",
@@ -66,30 +82,15 @@ class _SignUpPageState extends State<SignUpPage> {
                   color: AppColors.textfieldLabel,
                 ),
               ),
-              TextfieldWidget(icon: Icon(Icons.visibility), isPassword: true),
+              TextfieldWidget(
+                icon: Icon(Icons.visibility),
+                isPassword: true,
+                hintText: '************',
+              ),
               SizedBox(height: 8.0),
               Row(
                 children: [
-                  Checkbox(
-                    checkColor: AppColors.orange,
-                    fillColor: WidgetStateProperty.resolveWith<Color?>((
-                      Set<WidgetState> states,
-                    ) {
-                      return Colors.orange[100];
-                    }),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        5.0,
-                      ), // Add radius to checkbox
-                    ),
-                    side: BorderSide.none, // Remove border
-                    value: _termsAccepted,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _termsAccepted = value ?? false;
-                      });
-                    },
-                  ),
+                  _checkBox(),
                   RichText(
                     text: TextSpan(
                       children: <TextSpan>[
@@ -157,14 +158,16 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: AppColors.orange,
                             fontSize: WidgetSize.fontSize_14,
                           ),
-                          // recognizer:
-                          //     TapGestureRecognizer()
-                          //       ..onTap = () {
-                          //         Utility.printLog(
-                          //             'Open login');
-                          //         signupPageModel
-                          //             .goToLogin();
-                          //       },
+                          recognizer:
+                              TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const SignInPage(),
+                                    ),
+                                  );
+                                },
                         ),
                       ],
                     ),
@@ -189,24 +192,67 @@ class _SignUpPageState extends State<SignUpPage> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.4,
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
           // Light grey background
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppColors.textfieldLabel),
+          border: Border.all(color: AppColors.textFieldBorder),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min, // Make the row fit its content
           children: <Widget>[
-            Text(gender, style: TextStyle(fontFamily: Fonts.medium)),
+            Text(
+              gender,
+              style: TextStyle(
+                fontFamily: Fonts.medium,
+                color: AppColors.textfieldLabel,
+              ),
+            ),
             Spacer(),
             if (isSelected) ...[
-              SizedBox(width: 8), // Add some spacing before the checkmark
-              Icon(Icons.check, color: Colors.orange, size: 18),
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 12, maxHeight: 12),
+                child: Checkbox(
+                  checkColor: AppColors.orange,
+                  fillColor: WidgetStateProperty.resolveWith<Color?>((
+                    Set<WidgetState> states,
+                  ) {
+                    return Colors.orange[100];
+                  }),
+                  value: isSelected,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      5.0,
+                    ), // Add radius to checkbox
+                  ),
+                  onChanged: (bool? value) {},
+                ),
+              ),
             ],
           ],
         ),
       ),
+    );
+  }
+
+  Widget _checkBox() {
+    return Checkbox(
+      checkColor: AppColors.orange,
+      fillColor: WidgetStateProperty.resolveWith<Color?>((
+        Set<WidgetState> states,
+      ) {
+        return Colors.orange[100];
+      }),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0), // Add radius to checkbox
+      ),
+      side: BorderSide.none, // Remove border
+      value: _termsAccepted,
+      onChanged: (bool? value) {
+        setState(() {
+          _termsAccepted = value ?? false;
+        });
+      },
     );
   }
 }

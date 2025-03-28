@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/bloc/onboard_bloc.dart';
 import 'package:travel_app/config/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_app/pages/auth/sign_in.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class OnboardPages extends StatelessWidget {
   final List<Map<String, String>> onboardingData;
@@ -31,20 +33,21 @@ class OnboardPages extends StatelessWidget {
           return Scaffold(
             body: SafeArea(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Stack(
                     children: [
                       Image.asset(
                         onboardingData[currentPage]['element']!,
-
                         height: 600,
                       ),
-                      Image.asset(
-                        onboardingData[currentPage]['image']!,
-                        height: MediaQuery.of(context).size.height * 0.75,
-                        width: double.infinity,
-                        fit: BoxFit.contain,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 70.0),
+                        child: Image.asset(
+                          onboardingData[currentPage]['image']!,
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.75,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ],
                   ),
@@ -93,9 +96,11 @@ class OnboardPages extends StatelessWidget {
                                 Radius.circular(8.0),
                               ),
                             ),
-                            child: const Icon(
-                              Icons.arrow_back_rounded,
-                              color: AppColors.textFieldBorder,
+                            child: SvgPicture.asset(
+                              fit: BoxFit.none,
+                              SvgImages.leftArrow,
+                              semanticsLabel: 'Dart Logo',
+                              color: AppColors.white,
                             ),
                           ),
                         ),
@@ -111,11 +116,13 @@ class OnboardPages extends StatelessWidget {
                                   ? () =>
                                       onboardingBloc.add(NextOnboardingEvent())
                                   : () {
-                                    //   Navigator.pushReplacement(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             const MyHomePage())); // Replace MyHomePage
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => const SignInPage(),
+                                      ),
+                                    ); // Replace MyHomePage
                                     if (homeScreen != null) {
                                       Navigator.pushReplacement(
                                         context,
@@ -134,9 +141,11 @@ class OnboardPages extends StatelessWidget {
                                 Radius.circular(8.0),
                               ),
                             ),
-                            child: const Icon(
-                              Icons.arrow_forward_outlined,
-                              color: AppColors.textFieldBorder,
+                            child: SvgPicture.asset(
+                              fit: BoxFit.none,
+                              SvgImages.rightArrow,
+                              semanticsLabel: 'Dart Logo',
+                              color: AppColors.white,
                             ),
                           ),
                         ),
@@ -162,7 +171,7 @@ class OnboardPages extends StatelessWidget {
             currentPage == index
                 ? AppColors
                     .orange // Active color.
-                : AppColors.subText.withValues(alpha: 0.5), // Inactive color.
+                : AppColors.subText.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
       ),
     );
